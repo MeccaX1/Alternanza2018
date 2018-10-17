@@ -161,6 +161,8 @@ class App extends React.Component{
       visibility: 0,
       url: ""
     }
+    
+    city = prompt("Scegli citta");
 
     aggiorna = (city,unit,callback) =>{ weather(city, unit).then(info=> { 
       console.log(info);
@@ -193,7 +195,7 @@ class App extends React.Component{
     return(
       <div>
         <h1>
-          Reggio Emilia : temp attuale 
+          {city} 
         </h1>
         <h2>
           {this.state.temp}° <br/> {this.state.text} 
@@ -206,11 +208,10 @@ class App extends React.Component{
     );
   } 
  
-    render(){
+    render(city){
         return  ( 
-          
           <div>
-            {this.renderComponent("Reggio Emilia")}
+            {this.renderComponent(this.city)}
           </div>
         );      
     }
