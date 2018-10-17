@@ -186,21 +186,31 @@ class App extends React.Component{
     });
   }
 
-  renderButtonComponent = () =>{
-    this.aggiorna("Reggio Emilia","C");
-    console.log(this.state.forecast);
+  renderComponent = (city) =>{
+    this.aggiorna(city,"C");
+   
     
     return(
       <div>
-        {this.state.url}
+        <h1>
+          Reggio Emilia : temp attuale 
+        </h1>
+        <h2>
+          {this.state.temp}° <br/> {this.state.text} 
+        </h2>
+        <h3>
+          ultimo aggionamento : {this.state.lastUpdate}
+        </h3>
+        <h1>Previsoni per domani: massima {this.state.forecast[0].high} - minima {this.state.forecast[0].low} <br/> {this.state.forecast[0].text}  </h1>
       </div>
     );
   } 
  
     render(){
         return  ( 
+          
           <div>
-            {this.renderButtonComponent()}
+            {this.renderComponent("Reggio Emilia")}
           </div>
         );      
     }
