@@ -5,7 +5,10 @@
   "dependencies": {
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "react-scripts": "2.0.5"
+    "react-scripts": "2.0.5",
+    "weather": "^0.1.0",
+    "weather-js": "^2.0.0",
+    "yahoo-weather": "^2.2.2"
   },
   "scripts": {
     "start": "react-scripts start",
