@@ -159,15 +159,16 @@ class App extends React.Component{
       pressure: 0,
       rising: 0,
       visibility: 0,
-      url: ""
+      url: "",
+      city:"Reggio Emilia",
+      condition:""
+  
     }
     
-    city = prompt("Scegli citta");
-
+    //city = prompt("Scegli citta");
+    
     aggiorna = (city,unit,callback) =>{ weather(city, unit).then(info=> { 
-      console.log(info);
-      
-
+    
       this.setState(
         { 
           sunset: info.astronomy.sunset,
@@ -180,38 +181,65 @@ class App extends React.Component{
           pressure: info.atmosphere.pressure,
           rising: info.atmosphere.rising,
           visibility: info.atmosphere.visibility,
-          url: info.image.url
+          url: info.image.url,
+          condition : info.item.description
         }
       )
     }).catch(err => {
-      //TODO
+      
     });
   }
+  componentSelect = ()=>{
+    return(
+      <div>
+        Cerca citta': <input type="text" id="city"></input>
+        <button onClick= {()=>{
+                this.setState({lastCity: this.state.city})
+                this.setState({city: document.getElementById("city").value})
+                }
+        }>Aggiorna Città</button>
+      </div>
 
-  renderComponent = (city) =>{
-    this.aggiorna(city,"C");
-   
+    )
+  }
+  renderComponent = () =>{
+    this.aggiorna(this.state.city,"C");
+    
     
     return(
       <div>
         <h1>
-          {city} 
+          {this.state.city} <img alt=""  src={this.state.condition.split('"')[1]}></img>
+          
         </h1>
         <h2>
           {this.state.temp}° <br/> {this.state.text} 
         </h2>
         <h3>
-          ultimo aggionamento : {this.state.lastUpdate}
+          Ultimo aggionamento : {this.state.lastUpdate}
         </h3>
-        <h1>Previsoni per domani: massima {this.state.forecast[0].high} - minima {this.state.forecast[0].low} <br/> {this.state.forecast[0].text}  </h1>
+        <hr/>
+        <h1>Previsoni per domani: </h1>
+        <h2> Massima {this.state.forecast[0].high}°C
+          - Minima {this.state.forecast[0].low}°C <br/> 
+           {this.state.forecast[0].text} </h2>
+           <hr/>
+        <h1>Previsoni per dopodomani: </h1>
+        <h2> Massima {this.state.forecast[1].high}°C 
+          - Minima {this.state.forecast[1].low}°C <br/> 
+           {this.state.forecast[1].text} </h2>      
       </div>
     );
   } 
  
     render(city){
+     
+      
         return  ( 
+          
           <div>
-            {this.renderComponent(this.city)}
+            {this.componentSelect()}
+            {this.renderComponent()}
           </div>
         );      
     }
